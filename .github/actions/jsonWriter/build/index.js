@@ -9712,7 +9712,7 @@ async function example() {
     const key = core.getInput("key");
     const value = core.getInput("value");
 
-    const jsonString = fs.readFileSync(jsonFile);
+    const jsonString = await fs.stat(jsonFile);
     const versions = new Map(Object.entries(JSON.parse(jsonString)));
 
     versions.set(key, value);
