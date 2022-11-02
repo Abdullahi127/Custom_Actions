@@ -14,15 +14,12 @@ const fs = require("fs");
 
 try {
   const jsonFile = core.getInput("json-file");
-
   const key = core.getInput("key");
 
   const jsonString = fs.readFileSync(jsonFile);
   const versions = new Map(Object.entries(JSON.parse(jsonString)));
 
-  console.log("Core version: " + versions.get(key).toString());
   core.setOutput("value", versions.get(key).toString());
-
   console.log(JSON.stringify(github, null, "\t"));
 } catch (error) {
   core.setFailed(error.message);
