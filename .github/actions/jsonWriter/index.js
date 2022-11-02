@@ -4,35 +4,27 @@
 
 const core = require("@actions/core");
 const github = require("@actions/github");
-//const fs = require("fs");
-const fs = require("fs/promises");
+const fs = require("fs");
 
 // To build.
 // npm i -g @vercel/ncc
 // ncc build .github/actions/jsonWriter/index.js -o .github/actions/jsonWriter/build
 
 //---- Methods.
-async function example() {
-  try {
-    const jsonFile = core.getInput("path");
-    const key = core.getInput("key");
-    const value = core.getInput("value");
 
-    const jsonString = await fs.stat(jsonFile);
-    const versions = new Map(Object.entries(JSON.parse(jsonString)));
+try {
+  const jsonFile = core.getInput("path");
+  const key = core.getInput("key");
+  const value = core.getInput("value");
 
-    versions.set(key, value);
-    await fs.appendFile(
-      jsonFile,
-      JSON.stringify(Object.fromEntries([...versions]))
-    );
+  const jsonString = fs.readFileSync(jsonFile);
+  const versions = new Map(Object.entries(JSON.parse(jsonString)));
 
-    core.setOutput("map", JSON.stringify(Object.fromEntries([...versions])));
+  versions.set(key, value);
+  fs.writeFileSync(jsonFile, JSON.stringify(Object.fromEntries([...versions])));
+  core.setOutput("map", JSON.stringify(Object.fromEntries([...versions])));
 
-    console.log(JSON.stringify(github, null, "\t"));
-  } catch (error) {
-    core.setFailed(error.message);
-  }
+  console.log(JSON.stringify(github, null, "\t"));
+} catch (error) {
+  core.setFailed(error.message);
 }
-
-example();
