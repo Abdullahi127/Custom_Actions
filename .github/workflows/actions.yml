@@ -43,7 +43,7 @@ jobs:
         with:
           path: "./.github/resources/testVersions.json"
           key: "core"
-          value: "11.0.0"
+          value: "11.1.0"
           # TODO:
           # Update jsonWriter: [Fetch given branch], [Commit and push the update file to branch].
           # Add inputs:
