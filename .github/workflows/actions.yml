@@ -48,4 +48,4 @@ jobs:
           git add -A
           git commit -m "Update core in version"
           git fetch origin main
-          git push origin HEAD:master
+          git push origin HEAD:main
