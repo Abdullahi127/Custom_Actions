@@ -39,7 +39,7 @@ jobs:
         with:
           path: "./.github/resources/testVersions.json"
           key: "core"
-          value: "11.0.0"
+          value: "11.0.11"
       - run: |
           echo "Result: ${{ steps.json.outputs.map }}"
           git diff ./.github/resources/testVersions.json
@@ -47,4 +47,5 @@ jobs:
           git config --global user.name "AbdullahiAdenHassan"
           git add -A
           git commit -m "Update core in version"
-          git push
+          git fetch origin main
+          git push origin HEAD:master
