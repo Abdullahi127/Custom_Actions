@@ -57,5 +57,5 @@ jobs:
           git config --global user.name "AbdullahiAdenHassan"
           git add -A
           git commit -m "Update core in version"
-          git fetch origin main
           git push origin HEAD:main
+      # git fetch origin main
