@@ -9707,7 +9707,8 @@ try {
   const versions = new Map(Object.entries(JSON.parse(jsonString)));
 
   versions.set(key, value);
-  fs.writeFileSync(jsonFile, JSON.stringify(Object.fromEntries([...versions])));
+  const object = JSON.stringify(Object.fromEntries([...versions]));
+  fs.writeFileSync(jsonFile, object);
 
   core.setOutput("map", JSON.stringify(Object.fromEntries([...versions])));
 
