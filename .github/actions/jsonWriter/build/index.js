@@ -9709,7 +9709,7 @@ try {
   versions.set(key, value);
   fs.writeFileSync(
     jsonFile,
-    JSON.stringify(Object.fromEntries(versions)),
+    JSON.stringify(Object.fromEntries([...versions])),
     "utf-8"
   );
 
