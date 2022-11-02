@@ -1,16 +1,15 @@
-name: Json Reader
+name: Json Writer
 author: Abdullahi Aden Hassan
-description: Reads the json file and returns a value.
+description: Writes to the json file.
 inputs:
   json-file:
     description: "The json file."
     required: true
   key:
-    description: "The key of the value."
+    description: "The key of the new value"
     required: true
-outputs:
   value:
-    description: "The value of the key"
+    description: "The new value of the key."
 
 runs:
   using: "node16"
