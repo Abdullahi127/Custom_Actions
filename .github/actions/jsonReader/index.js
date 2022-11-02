@@ -4,9 +4,7 @@
 
 const core = require("@actions/core");
 const github = require("@actions/github");
-
 const fs = require("fs");
-const { version } = require("os");
 
 // To build.
 // npm i -g @vercel/ncc
@@ -14,7 +12,6 @@ const { version } = require("os");
 
 //---- Methods.
 
-//---- Main execution.
 try {
   const jsonFile = core.getInput("json-file");
 
@@ -23,8 +20,8 @@ try {
   const jsonString = fs.readFileSync(jsonFile);
   const versions = new Map(Object.entries(JSON.parse(jsonString)));
 
-  console.log("Core version: " + versions[key]);
-  core.setOutput("value", versions[key]);
+  console.log("Core version: " + versions[key].toString());
+  core.setOutput("value", versions[key].toString());
 
   console.log(JSON.stringify(github, null, "\t"));
 } catch (error) {

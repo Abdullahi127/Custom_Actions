@@ -9690,9 +9690,7 @@ var __webpack_exports__ = {};
 
 const core = __nccwpck_require__(6074);
 const github = __nccwpck_require__(2031);
-
 const fs = __nccwpck_require__(7147);
-const { version } = __nccwpck_require__(2037);
 
 // To build.
 // npm i -g @vercel/ncc
@@ -9700,7 +9698,6 @@ const { version } = __nccwpck_require__(2037);
 
 //---- Methods.
 
-//---- Main execution.
 try {
   const jsonFile = core.getInput("json-file");
 
@@ -9709,8 +9706,8 @@ try {
   const jsonString = fs.readFileSync(jsonFile);
   const versions = new Map(Object.entries(JSON.parse(jsonString)));
 
-  console.log("Core version: " + versions[key]);
-  core.setOutput("value", versions[key]);
+  console.log("Core version: " + versions[key].toString());
+  core.setOutput("value", versions[key].toString());
 
   console.log(JSON.stringify(github, null, "\t"));
 } catch (error) {
