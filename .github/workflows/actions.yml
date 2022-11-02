@@ -43,5 +43,7 @@ jobs:
       - run: |
           echo "Result: ${{ steps.json.outputs.map }}"
           git diff ./.github/resources/testVersions.json
+          git config --global user.email "<abdullahi.aden.hassan@gmail.com"
+          git config --global user.name "AbdullahiAdenHassan"
           git add -A
           git commit -m "Update core in version"

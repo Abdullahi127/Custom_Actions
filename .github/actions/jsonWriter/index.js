@@ -21,8 +21,7 @@ try {
   const versions = new Map(Object.entries(JSON.parse(jsonString)));
 
   versions.set(key, value);
-  const object = JSON.stringify(Object.fromEntries([...versions]));
-  fs.writeFileSync(jsonFile, object);
+  fs.writeFileSync(jsonFile, JSON.stringify(Object.fromEntries([...versions])));
 
   core.setOutput("map", JSON.stringify(Object.fromEntries([...versions])));
 
