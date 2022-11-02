@@ -20,8 +20,8 @@ try {
   const jsonString = fs.readFileSync(jsonFile);
   const versions = new Map(Object.entries(JSON.parse(jsonString)));
 
-  console.log("Core version: " + versions[key].toString());
-  core.setOutput("value", versions[key].toString());
+  console.log("Core version: " + versions.get(key).toString());
+  core.setOutput("value", versions.get(key).toString());
 
   console.log(JSON.stringify(github, null, "\t"));
 } catch (error) {
