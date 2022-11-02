@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main # Change to main to trigger the workflow.
+  # TODO:
+  # Update jsonReader and jsonWriter: Must fetch from a branch before reading and writing.
 
 jobs:
   testing-jsonReader-1:
@@ -17,6 +19,8 @@ jobs:
           key: "core"
       - run: |
           echo "Result: ${{ steps.json.outputs.value }}"
+      # Input: branch
+    # Update: Fetch given branch.
 
   testing-jsonReader-2:
     runs-on: ubuntu-latest
@@ -40,6 +44,12 @@ jobs:
           path: "./.github/resources/testVersions.json"
           key: "core"
           value: "11.0.0"
+          # TODO:
+          # Update jsonWriter: [Fetch given branch], [Commit and push the update file to branch].
+          # Add inputs:
+          # Branch.
+          # email - global user.email
+          # name - global user.name
       - run: |
           echo "Result: ${{ steps.json.outputs.map }}"
           git diff ./.github/resources/testVersions.json
