@@ -9684,27 +9684,33 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
+// Add dependencies.
 // npm install @actions/core
 // npm install @actions/github
 
 const core = __nccwpck_require__(6074);
 const github = __nccwpck_require__(2031);
 
+const fs = __nccwpck_require__(7147);
+const { version } = __nccwpck_require__(2037);
+
+// To build.
 // npm i -g @vercel/ncc
+// ncc build .github/actions/jsonReader/index.js -o .github/actions/jsonReader/build
 
-// ncc build input.js -o dist
+//---- Methods.
 
-// Methods.
-
-// Main execution.
+//---- Main execution.
 try {
   const jsonFile = core.getInput("json-file");
 
   const key = core.getInput("key");
 
-  const value = "";
+  const jsonString = fs.readFileSync(jsonFile);
+  const versions = new Map(Object.entries(JSON.parse(jsonString)));
 
-  core.setOutput("value", value);
+  console.log("Core version: " + versions[key]);
+  core.setOutput("value", versions[key]);
 
   console.log(JSON.stringify(github, null, "\t"));
 } catch (error) {
