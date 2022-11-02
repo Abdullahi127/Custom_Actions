@@ -47,3 +47,4 @@ jobs:
           git config --global user.name "AbdullahiAdenHassan"
           git add -A
           git commit -m "Update core in version"
+          git push
