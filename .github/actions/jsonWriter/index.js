@@ -13,7 +13,7 @@ const fs = require("fs");
 //---- Methods.
 
 try {
-  const jsonFile = core.getInput("json-file");
+  const jsonFile = core.getInput("path");
   const key = core.getInput("key");
   const value = core.getInput("value");
 
@@ -26,6 +26,8 @@ try {
     JSON.stringify(Object.fromEntries([...versions])),
     "utf-8"
   );
+
+  core.setOutput("map", JSON.stringify(Object.fromEntries([...versions])));
 
   console.log(JSON.stringify(github, null, "\t"));
 } catch (error) {

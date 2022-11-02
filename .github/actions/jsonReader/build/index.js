@@ -9699,7 +9699,7 @@ const fs = __nccwpck_require__(7147);
 //---- Methods.
 
 try {
-  const jsonFile = core.getInput("json-file");
+  const jsonFile = core.getInput("path");
   const key = core.getInput("key");
 
   const jsonString = fs.readFileSync(jsonFile);

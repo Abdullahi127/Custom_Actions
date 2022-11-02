@@ -13,7 +13,7 @@ const fs = require("fs");
 //---- Methods.
 
 try {
-  const jsonFile = core.getInput("json-file");
+  const jsonFile = core.getInput("path");
   const key = core.getInput("key");
 
   const jsonString = fs.readFileSync(jsonFile);

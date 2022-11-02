@@ -2,14 +2,18 @@ name: Json Writer
 author: Abdullahi Aden Hassan
 description: Writes to the json file.
 inputs:
-  json-file:
-    description: "The json file."
+  path:
+    description: "The path to the json file."
     required: true
   key:
     description: "The key of the new value"
     required: true
   value:
     description: "The new value of the key."
+    required: true
+outputs:
+  map:
+    description: "The updated map"
 
 runs:
   using: "node16"

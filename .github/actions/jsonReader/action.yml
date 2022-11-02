@@ -2,8 +2,8 @@ name: Json Reader
 author: Abdullahi Aden Hassan
 description: Reads the json file and returns a value.
 inputs:
-  json-file:
-    description: "The json file."
+  path:
+    description: "The path to the json file."
     required: true
   key:
     description: "The key of the value."
