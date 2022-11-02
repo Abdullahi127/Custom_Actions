@@ -1,0 +1,17 @@
+name: Json Parser
+author: Abdullahi Aden Hassan
+description: Finds the value of the given key.
+inputs:
+  json-file:
+    description: "The file that will read"
+    required: true
+  key:
+    description: "The that will be used to get the value"
+    required: true
+outputs:
+  value:
+    description: "The return value"
+
+runs:
+  using: "node16"
+  main: "build/index.js"
