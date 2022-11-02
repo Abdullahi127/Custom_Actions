@@ -42,3 +42,4 @@ jobs:
           value: "11.0.0"
       - run: |
           echo "Result: ${{ steps.json.outputs.map }}"
+          git diff ./.github/resources/testVersions.json
