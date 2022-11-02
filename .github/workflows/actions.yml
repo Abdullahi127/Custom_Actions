@@ -43,3 +43,5 @@ jobs:
       - run: |
           echo "Result: ${{ steps.json.outputs.map }}"
           git diff ./.github/resources/testVersions.json
+          git add -A
+          git commit -m "Update core in version"
