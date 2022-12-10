@@ -24,7 +24,11 @@ jobs:
   set-project-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout main repo.
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          fetch-depth: 0
       - uses: ./.github/actions/setprojectversion
         id: json
         with:
@@ -37,13 +41,14 @@ jobs:
           # Branch.
           # email - global user.email
           # name - global user.name
-      - run: |
-          echo "Result: ${{ steps.json.outputs.map }}"
-          git diff ./.github/resources/testVersions.json
-          git config --global user.email "abdullahi.aden.hassan@gmail.com"
-          git config --global user.name "AbdullahiAdenHassan"
-          git add -A
-          git commit -m "Update core in version"
+
+      - name: commit changes
+        run: |
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}"
+          git add ./testVersions.json
+          git commit -m "Update versions"
           git push
+
       # git push origin HEAD:main
       # git fetch origin main
