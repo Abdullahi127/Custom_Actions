@@ -7,8 +7,7 @@ on:
   # Update jsonReader and jsonWriter: Must fetch from a branch before reading and writing.
 
 jobs:
-  testing-jsonReader-1:
-    needs: testing-jsonWriter-1
+  find-project-version:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -22,23 +21,11 @@ jobs:
       # Input: branch
     # Update: Fetch given branch.
 
-  testing-jsonReader-2:
+  set-project-version:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/jsonReader
-        id: json
-        with:
-          path: "./.github/resources/testVersions.json"
-          key: "adp"
-      - run: |
-          echo "Result: ${{ steps.json.outputs.value }}"
-
-  testing-jsonWriter-1:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/jsonWriter
+      - uses: ./.github/actions/setprojectversion
         id: json
         with:
           path: "./.github/resources/testVersions.json"
