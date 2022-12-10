@@ -1,6 +1,140 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 4599:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const core = __nccwpck_require__(6074); // npm install @actions/core
+const github = __nccwpck_require__(2031); // npm install @actions/github
+
+const findValidRegex = (validRegexes, projectName, commits) => {
+  const result = "#" + projectName + "-PATCH";
+  for (let i = 0; i < validRegexes.length; i++) {
+    const regex = new RegExp(`${validRegexes[i]}`);
+    for (let j = 0; j < commits.length; j++) {
+      const word = commits[j].toUpperCase();
+      if (regex.test(word)) {
+        return word;
+      }
+    }
+  }
+  return result;
+};
+
+const updateMAJOR = (currentVersion) => {
+  const digests = currentVersion.split(".");
+  let MAJOR = parseInt(digests[0]) + 1;
+  let MINOR = 0;
+  let PATCH = 0;
+
+  return MAJOR + "." + MINOR + "." + PATCH;
+};
+
+const updateMINOR = (currentVersion) => {
+  const digests = currentVersion.split(".");
+  let MAJOR = parseInt(digests[0]);
+  let MINOR = parseInt(digests[1]) + 1;
+  let PATCH = 0;
+
+  return MAJOR + "." + MINOR + "." + PATCH;
+};
+
+const updatePatch = (currentVersion) => {
+  const digests = currentVersion.split(".");
+  let MAJOR = parseInt(digests[0]);
+  let MINOR = parseInt(digests[1]);
+  let PATCH = parseInt(digests[2]) + 1;
+
+  return MAJOR + "." + MINOR + "." + PATCH;
+};
+
+const findFirstMatch = (characters, regexes) => {
+  let temp;
+  for (let i = 0; i < regexes.length; i++) {
+    temp = characters.match(new RegExp(`${regexes[i]}`));
+
+    if (temp != null) {
+      return temp.toString();
+    }
+  }
+  return temp.toString();
+};
+
+const nextVersion = (result, currentVersion) => {
+  switch (result) {
+    case "MAJOR":
+      return updateMAJOR(currentVersion);
+    case "MINOR":
+      return updateMINOR(currentVersion);
+    case "PATCH":
+      return updatePatch(currentVersion);
+    default:
+      throw console.error(
+        "Illegal state, the variable must be MAJOR, MINOR or PATCH. The variable is [ " +
+          result +
+          " ]"
+      ); // TODO need to be tested!
+  }
+};
+
+const updateCurrentVersion = (projectName, currentVersion, commits) => {
+  const validRegexes = [
+    "#" + projectName + "-MAJOR",
+    "#" + projectName + "MAJOR",
+    "#" + projectName + "-MINOR",
+    "#" + projectName + "MINOR",
+    "#" + projectName + "-PATCH",
+    "#" + projectName + "PATCH",
+  ];
+
+  const validWords = ["MAJOR", "MINOR", "PATCH"];
+
+  const commitsArray = commits.split(" ");
+  let result = findValidRegex(validRegexes, projectName, commitsArray);
+  result = findFirstMatch(result, validWords);
+
+  switch (result) {
+    case "MAJOR":
+      return updateMAJOR(currentVersion);
+    case "MINOR":
+      return updateMINOR(currentVersion);
+    default:
+      return updatePatch(currentVersion);
+  }
+};
+
+// INSTALL: npm i -g @vercel/ncc
+// ncc build .github/actions/findnextversion/index.js -o .github/actions/findnextversion/build
+
+try {
+  const projectName = core.getInput("projectName").toUpperCase();
+  const currentVersion = core.getInput("currentVersion");
+  const commits = core.getInput("commits");
+  const nextVersion = updateCurrentVersion(
+    projectName,
+    currentVersion,
+    commits
+  );
+
+  core.setOutput("nextVersion", nextVersion);
+  console.log(JSON.stringify(github, null, "\t"));
+} catch (error) {
+  core.setFailed(error.message);
+}
+
+module.exports = {
+  updatePatch,
+  updateMINOR,
+  updateMAJOR,
+  findFirstMatch,
+  findValidRegex,
+  nextVersion,
+  updateCurrentVersion,
+};
+
+
+/***/ }),
+
 /***/ 808:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -9681,42 +9815,12 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
-// Add dependencies.
-// npm install @actions/core
-// npm install @actions/github
-
-const core = __nccwpck_require__(6074);
-const github = __nccwpck_require__(2031);
-const fs = __nccwpck_require__(7147);
-
-// To build.
-// npm i -g @vercel/ncc
-// ncc build .github/actions/jsonWriter/index.js -o .github/actions/jsonWriter/build
-
-//---- Methods.
-
-try {
-  const jsonFile = core.getInput("path");
-  const key = core.getInput("key");
-  const value = core.getInput("value");
-
-  const jsonString = fs.readFileSync(jsonFile);
-  const versions = new Map(Object.entries(JSON.parse(jsonString)));
-
-  versions.set(key, value);
-  fs.writeFileSync(jsonFile, JSON.stringify(Object.fromEntries([...versions])));
-  core.setOutput("map", JSON.stringify(Object.fromEntries([...versions])));
-
-  console.log(JSON.stringify(github, null, "\t"));
-} catch (error) {
-  core.setFailed(error.message);
-}
-
-})();
-
-module.exports = __webpack_exports__;
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __nccwpck_require__(4599);
+/******/ 	module.exports = __webpack_exports__;
+/******/ 	
 /******/ })()
 ;

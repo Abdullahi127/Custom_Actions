@@ -1,6 +1,6 @@
-name: Json Reader
+name: Find project version. Reader
 author: Abdullahi Aden Hassan
-description: Reads the json file and returns a value.
+description: Find a project version inside a json file.
 inputs:
   path:
     description: "The path to the json file."

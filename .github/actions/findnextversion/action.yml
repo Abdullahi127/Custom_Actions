@@ -1,0 +1,23 @@
+name: find next version
+author: Abdullahi Aden Hassan
+description: Tries to find the next version.
+inputs:
+  projectName:
+    description: the name of the project.
+    required: true
+  currentVersion:
+    description: The current version that will be updated.
+    required: true
+  commits:
+    description: All the commits that will be checked.
+    required: true
+
+outputs:
+  nextVersion:
+    description: "next project version"
+
+runs:
+  using: "node16"
+  main: "build/index.js"
+
+  # TODO Update to version 2. Use inputs 'before commit' and 'after commit' instead of using: commits.

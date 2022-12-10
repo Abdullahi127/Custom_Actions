@@ -1,6 +1,6 @@
-name: Json Writer
+name: Set project version
 author: Abdullahi Aden Hassan
-description: Writes to the json file.
+description: Set project version inside a json file.
 inputs:
   path:
     description: "The path to the json file."
