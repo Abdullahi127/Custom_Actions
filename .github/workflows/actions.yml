@@ -34,13 +34,7 @@ jobs:
         with:
           path: "./.github/resources/testVersions.json"
           key: "core"
-          value: "11.2.0" # Must be update for each commit.
-          # TODO:
-          # Update jsonWriter: [Fetch given branch], [Commit and push the update file to branch].
-          # Add inputs:
-          # Branch.
-          # email - global user.email
-          # name - global user.name
+          value: "11.3.0" # Must be update for each commit.
 
       - name: commit changes
         run: |
@@ -49,6 +43,3 @@ jobs:
           git add ./.github/resources/testVersions.json
           git commit -m "Update versions"
           git push
-
-      # git push origin HEAD:main
-      # git fetch origin main
