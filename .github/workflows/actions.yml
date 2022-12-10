@@ -18,7 +18,7 @@ jobs:
           key: "core"
       - run: |
           echo "Result: ${{ steps.json.outputs.value }}"
-      # Input: branch
+    # Input: branch
     # Update: Fetch given branch.
 
   set-project-version:
@@ -46,7 +46,7 @@ jobs:
         run: |
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}"
-          git add ./testVersions.json
+          git add ./.github/resources/testVersions.json
           git commit -m "Update versions"
           git push
 
